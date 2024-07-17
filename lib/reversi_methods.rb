@@ -76,10 +76,6 @@ module ReversiMethods
   end
 
   def placeable?(board, attack_stone_color)
-    board_a = board.flatten
-    return false unless board_a.include?(BLANK_CELL) # BLANK_CELLがない場合
-    return false unless board_a.include?(WHITE_STONE) && board_a.include?(BLACK_STONE) # 白と黒の両方が存在しない場合
-
     board.each_with_index do |cols, row|
       cols.each_with_index do |cell, col|
         next unless cell == BLANK_CELL
@@ -88,6 +84,7 @@ module ReversiMethods
         return true if put_stone(board, position.to_cell_ref, attack_stone_color, dry_run: true)
       end
     end
+    return false
   end
 
   def count_stone(board, stone_color)
